@@ -6,96 +6,161 @@
   <title>AI Tools Collection</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      transition: background-color 0.3s, color 0.3s;
-      background: linear-gradient(135deg, #6b7280, #3b82f6, #8b5cf6);
-      background-size: 400%;
-      animation: gradient 15s ease infinite;
+      font-family: 'Inter', sans-serif;
+      background: #0a0a23;
+      color: #e0e0e0;
+      overflow-x: hidden;
+      position: relative;
     }
-    @keyframes gradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    /* Starry Background */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png'), radial-gradient(circle, #0a0a23, #1e1e3f);
+      z-index: -1;
+      animation: twinkle 10s infinite;
     }
-    .dark {
-      background: linear-gradient(135deg, #1f2937, #1e40af, #4c1d95);
-      background-size: 400%;
-      animation: gradient 15s ease infinite;
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
     }
+    .dark .stars {
+      background: url('https://www.transparenttextures.com/patterns/stardust.png'), radial-gradient(circle, #0a0a23, #2a2a5a);
+    }
+    /* Header */
     .header {
-      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-    .search-container {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(10, 10, 35, 0.8);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
-      padding: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
+    .header h1 {
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, #00f7ff, #ff00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
+    }
+    /* Search Bar */
+    .search-container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      padding: 10px 20px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 247, 255, 0.2);
+      transition: box-shadow 0.3s;
+    }
+    .search-container:hover {
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 247, 255, 0.5);
+    }
+    .search-container input {
+      background: transparent;
+      color: #e0e0e0;
+    }
+    /* Cards */
     .card {
-      background: rgba(255, 255, 255, 0.9);
-      border: 2px solid transparent;
-      border-image: linear-gradient(45deg, #3b82f6, #8b5cf6) 1;
-      border-radius: 12px;
-      transition: transform 0.3s, box-shadow 0.3s;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
     }
-    .dark .card {
-      background: rgba(31, 41, 55, 0.9);
-      border-image: linear-gradient(45deg, #60a5fa, #a78bfa) 1;
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(0, 247, 255, 0.1), rgba(255, 0, 255, 0.1));
+      opacity: 0;
+      transition: opacity 0.3s;
     }
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    .card:hover::before {
+      opacity: 1;
+    }
+    .card h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: #00f7ff;
+      text-shadow: 0 0 5px rgba(0, 247, 255, 0.5);
     }
     .topic-badge {
-      background: linear-gradient(45deg, #3b82f6, #8b5cf6);
-      color: white;
-      padding: 4px 12px;
+      background: linear-gradient(45deg, #00f7ff, #ff00ff);
+      color: #fff;
+      padding: 5px 15px;
       border-radius: 20px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
+      box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
     }
+    /* Footer */
     .footer {
-      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-      color: white;
+      background: rgba(10, 10, 35, 0.8);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .footer a {
+      transition: color 0.3s;
+    }
+    .footer a:hover {
+      color: #00f7ff;
+      text-shadow: 0 0 5px rgba(0, 247, 255, 0.5);
+    }
+    .social-icon {
+      filter: grayscale(100%);
+      transition: filter 0.3s;
+    }
+    .social-icon:hover {
+      filter: grayscale(0%);
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col text-gray-800 dark:text-gray-200">
-  <header class="header text-white p-6">
+<body class="min-h-screen flex flex-col">
+  <div class="stars"></div>
+  <header class="header text-white p-6 fixed w-full top-0 z-10">
     <div class="container mx-auto flex justify-between items-center">
       <div class="flex items-center space-x-4">
-        <img src="https://via.placeholder.com/40" alt="Logo" class="w-10 h-10 rounded-full">
+        <img src="https://via.placeholder.com/40?text=AI" alt="Logo" class="w-10 h-10 rounded-full border-2 border-cyan-400 shadow-lg">
         <h1 class="text-3xl font-bold">AI Tools Collection</h1>
       </div>
-      <button id="themeToggle" class="bg-white dark:bg-gray-700 text-gray-800 dark:text-white px-4 py-2 rounded-full shadow hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+      <button id="themeToggle" class="bg-gray-800 text-white px-4 py-2 rounded-full shadow-lg hover:bg-gray-700 transition">
         Toggle Theme
       </button>
     </div>
   </header>
-  <main class="container mx-auto p-6 flex-grow">
-    <div class="mb-6 search-container flex items-center">
-      <svg class="w-5 h-5 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <main class="container mx-auto p-6 flex-grow mt-20">
+    <div class="mb-8 search-container flex items-center">
+      <svg class="w-6 h-6 text-cyan-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
       </svg>
       <input
         type="text"
         id="search"
         placeholder="Search AI tools..."
-        class="w-full bg-transparent text-gray-800 dark:text-white placeholder-gray-500 focus:outline-none"
+        class="w-full focus:outline-none placeholder-gray-400"
         onkeyup="searchTools()"
       />
     </div>
-    <div id="toolsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <div id="toolsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
   </main>
-  <footer class="footer text-center p-4">
-    <p>© 2025 AI Tools Collection. Contribute on <a href="https://github.com/Minhajms/AI-Tools-Collection-" class="underline hover:text-gray-200">GitHub</a>.</p>
-    <div class="mt-2 space-x-4">
-      <a href="https://twitter.com" target="_blank" class="hover:text-gray-200">Twitter</a>
-      <a href="https://reddit.com" target="_blank" class="hover:text-gray-200">Reddit</a>
+  <footer class="footer text-center p-6">
+    <p>© 2025 AI Tools Collection. Contribute on <a href="https://github.com/Minhajms/AI-Tools-Collection-" class="underline">GitHub</a>.</p>
+    <div class="mt-3 flex justify-center space-x-4">
+      <a href="https://twitter.com" target="_blank">
+        <img src="https://img.icons8.com/color/48/000000/twitter.png" alt="Twitter" class="w-6 h-6 social-icon">
+      </a>
+      <a href="https://reddit.com" target="_blank">
+        <img src="https://img.icons8.com/color/48/000000/reddit.png" alt="Reddit" class="w-6 h-6 social-icon">
+      </a>
     </div>
   </footer>
   <script>
@@ -111,17 +176,24 @@
           tools.forEach(tool => {
             if (tool.Tool && tool.Link && tool.Description && tool.Topic) {
               const card = document.createElement("div");
-              card.className = "card p-6 rounded-lg shadow-lg";
+              card.className = "card tilt-card";
               card.innerHTML = `
-                <h3 class="text-xl font-semibold mb-2">${tool.Tool}</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">${tool.Description}</p>
-                <a href="${tool.Link}" target="_blank" class="text-blue-500 dark:text-blue-400 hover:underline">${tool.Link}</a>
-                <div class="mt-3">
+                <h3 class="text-xl font-semibold mb-3">${tool.Tool}</h3>
+                <p class="text-sm text-gray-400 mb-4">${tool.Description}</p>
+                <a href="${tool.Link}" target="_blank" class="text-cyan-400 hover:text-cyan-300 transition">${tool.Link}</a>
+                <div class="mt-4">
                   <span class="topic-badge">${tool.Topic}</span>
                 </div>
               `;
               container.appendChild(card);
             }
+          });
+          // Initialize Vanilla Tilt for 3D effect
+          VanillaTilt.init(document.querySelectorAll(".tilt-card"), {
+            max: 15,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.3,
           });
         },
         error: function() {
@@ -141,7 +213,7 @@
       }
     }
 
-    // Theme toggle
+    // Theme toggle (minimal visual change for now)
     document.getElementById("themeToggle").addEventListener("click", () => {
       document.body.classList.toggle("dark");
       localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
