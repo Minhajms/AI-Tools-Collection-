@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tools Collection</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <style>
+    body {
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .dark {
+      background-color: #1a202c;
+      color: #e2e8f0;
+    }
+    .card {
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
+  <header class="bg-blue-600 dark:bg-blue-800 text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">AI Tools Collection</h1>
+      <button id="themeToggle" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white px-3 py-1 rounded">
+        Toggle Theme
+      </button>
+    </div>
+  </header>
+  <main class="container mx-auto p-4 flex-grow">
+    <div class="mb-4">
+      <input
+        type="text"
+        id="search"
+        placeholder="Search AI tools..."
+        class="w-full p-2 border rounded-lg dark:bg-gray-800 dark:border-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        onkeyup="searchTools()"
+      />
+    </div>
+    <div id="toolsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </main>
+  <footer class="bg-gray-200 dark:bg-gray-800 text-center p-4">
+    <p>© 2025 AI Tools Collection. Contribute on <a href="https://github.com/Minhajms/AI-Tools-Collection-" class="text-blue-500 hover:underline">GitHub</a>.</p>
+  </footer>
+  <script>
+    // Load tools from CSV
+    function loadTools() {
+      Papa.parse("data/ai_tools.csv", {
+        download: true,
+        header: true,
+        complete: function(results) {
+          const tools = results.data;
+          const container = document.getElementById("toolsContainer");
+          container.innerHTML = ''; // Clear container
+          tools.forEach(tool => {
+            if (tool.Tool && tool.Link && tool.Description && tool.Topic) {
+              const card = document.createElement("div");
+              card.className = "card bg-white dark:bg-gray-800 p-4 rounded-lg shadow";
+              card.innerHTML = `
+                <h3 class="text-lg font-semibold">${tool.Tool}</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300">${tool.Description}</p>
+                <a href="${tool.Link}" target="_blank" class="text-blue-500 hover:underline">${tool.Link}</a>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Topic: ${tool.Topic}</p>
+              `;
+              container.appendChild(card);
+            }
+          });
+        },
+        error: function() {
+          const container = document.getElementById("toolsContainer");
+          container.innerHTML = '<p class="text-red-500">Error loading tools. Please check the CSV file.</p>';
+        }
+      });
+    }
+
+    // Search functionality
+    function searchTools() {
+      const input = document.getElementById("search").value.toLowerCase();
+      const cards = document.getElementById("toolsContainer").getElementsByClassName("card");
+      for (let card of cards) {
+        const toolName = card.querySelector("h3").textContent.toLowerCase();
+        card.style.display = toolName.includes(input) ? "" : "none";
+      }
+    }
+
+    // Theme toggle
+    document.getElementById("themeToggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+    });
+
+    // Load theme from localStorage
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+    }
+
+    // Load tools on page load
+    window.onload = loadTools;
+  </script>
+</body>
+</html>
