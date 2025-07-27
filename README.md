@@ -61,7 +61,7 @@ Welcome to the **AI Tools Collection** repository! This project curates a compre
 | AI-powered coding and research tool | Blackbox | [blackbox.ai](https://www.blackbox.ai/) | LLM |
 | AI agent platform for task automation | GenSpark | [genspark.ai](https://www.genspark.ai/) | Agents |
 | AI agent platform for enterprise tasks | DeepAgent | [deepagent.abacus.ai](https://deepagent.abacus.ai/) | Agents |
-
+| marketting and desining |https://www.lovart.ai/agenta |and vedio |
 ## Contributing
 We welcome contributions to keep this list up-to-date and comprehensive! To add or update a tool:
 1. Fork this repository.
