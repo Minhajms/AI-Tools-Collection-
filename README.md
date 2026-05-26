@@ -61,6 +61,7 @@ Welcome to the **AI Tools Collection** repository! This project curates a compre
 | AI-powered coding and research tool | Blackbox | [blackbox.ai](https://www.blackbox.ai/) | LLM |
 | AI agent platform for task automation | GenSpark | [genspark.ai](https://www.genspark.ai/) | Agents |
 | AI agent platform for enterprise tasks | DeepAgent | [deepagent.abacus.ai](https://deepagent.abacus.ai/) | Agents |
+| Generate free AI landscape design previews and yard inspiration | LandscapioAI | [landscapioai.com](https://www.landscapioai.com/) | Images |
 | marketting and desining |https://www.lovart.ai/agenta |and vedio |
 |sone say it is for beting gpt |https://chat.z.ai/|llm
 ## Contributing
