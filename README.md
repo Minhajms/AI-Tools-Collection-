@@ -24,6 +24,7 @@ Welcome to the **AI Tools Collection** repository! This project curates a compre
 | Build fullstack applications from prompts | Bolt.new | [bolt.new](https://bolt.new/) | Dev |
 | Transcribe YouTube videos into summaries and notes | NoteGPT | [notegpt.io](https://notegpt.io/) | Productivity |
 | Create professional videos from text prompts | Pictory | [pictory.ai](https://pictory.ai/) | Videos |
+| Turn blogs, PDFs, and prompts into editable faceless videos | videos.social | [videos.social](https://videos.social/?utm_source=minhajms-ai-tools-collection&utm_medium=directory&utm_campaign=listing-wave-d) | Videos |
 | Turn any content or idea into videos instantly | InVideo AI | [ai.invideo.io](https://ai.invideo.io/signup) | Videos |
 | Create and edit professional videos with AI | VEED | [veed.io](https://www.veed.io/) | Videos |
 | Create, translate, and personalize videos in minutes | HeyGen | [app.heygen.com](https://app.heygen.com/login) | Videos |
